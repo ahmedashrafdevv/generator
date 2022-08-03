@@ -13,6 +13,13 @@ func NullValueFromType(typeKey *string) string {
 func RemoveLastNChars(str *string, n int) {
 	*str = string([]rune(*str)[:len(*str)-n])
 }
-func RemoveFirstNChars(str string, n int) string {
-	return str[n:]
+func RemoveFirstNChars(str *string, n int) {
+	*str = (*str)[n:]
+}
+
+func ConvertBoolToYesOrNo(isTrue *bool) string {
+	if *isTrue {
+		return "YES"
+	}
+	return "NO"
 }

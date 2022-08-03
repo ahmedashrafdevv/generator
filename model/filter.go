@@ -4,6 +4,15 @@ import (
 	"fmt"
 )
 
+func FilterFactory(t *string, req *Required) Filter {
+	var FilterFactoryMap map[string]Filter = map[string]Filter{
+		"equal":  EqualFilter{Required: *req},
+		"search": SearchFilter{Required: *req},
+		"date":   DateFilter{Required: *req},
+	}
+	return FilterFactoryMap[*t]
+}
+
 // defining an interface
 type Filter interface {
 	GenerateFilterQuery(name string) string
@@ -23,6 +32,9 @@ type DateFilter struct {
 }
 
 func _defaultParameter(name string, dataType string, filterStr string) string {
+	if dataType == "varchar" {
+		dataType += "(300)"
+	}
 	f := fmt.Sprintf("@%s %s %s,\n", name, dataType, filterStr)
 	return f
 }

@@ -22,6 +22,6 @@ func New() (*gorm.DB, error) {
 		return nil, err
 	}
 	DB.LogMode(true)
-	fmt.Println("Connection Opened to Database")
+	fmt.Println("Connection Opened to Database" + conStr)
 	return DB, nil
 }
